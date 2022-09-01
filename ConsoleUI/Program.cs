@@ -18,7 +18,7 @@ namespace ConsoleUI
             //Console.WriteLine("Car Added!");
 
 
-            Console.WriteLine("------- 0 --------");
+            Console.WriteLine("------- 0 ---------");
 
             CarDailyPriceTest1();
 
