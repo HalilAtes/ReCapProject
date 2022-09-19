@@ -1,4 +1,5 @@
-﻿using Business.Concrete;
+﻿using Business.Abstract;
+using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
@@ -41,28 +42,7 @@ namespace ConsoleUI
 
             //test();
 
-
-            CarManager carManager1 = new CarManager(new EfCarDal());
-
-            RentalManager rentalManager = new RentalManager(new EfRentalDal());
-
-            rentalManager.Add(new Rental
-            {
-                CarId = 1,
-                CustomerId = 103,
-                ReturnDate = new DateTime(2022, 8, 22),
-                RentDate = new DateTime(2021, 4, 10)
-            });
-            Console.WriteLine("Rental Added");
-
-            Console.WriteLine("------- 5 --------");
-
-
-            RentalManager rentalManager2 = new RentalManager(new EfRentalDal());
-            foreach (var rental in rentalManager2.GetAll().Data)
-            {
-                Console.WriteLine(rental.RentDate);
-            }
+       
 
 
         }

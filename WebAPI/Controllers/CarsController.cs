@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        [Authorize(Roles = "car.list")]               // Nasıl girebilir = Product.List yetkisi
+       /* [Authorize(Roles = "car.list")]  */             // Nasıl girebilir = Product.List yetkisi
         public IActionResult GetAll()
         {
             //Dependency chain -- 
@@ -34,6 +34,23 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getallcardetails")]
+
+        public IActionResult GetCarDetails()
+        {
+            //Dependency chain -- 
+
+            var result = _carService.GetCarDetails();
+            if (result.Success)
+            {
+                return Ok(result);      //Ok 200
+            }
+            return BadRequest(result);
+        }
+
+
+
+
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
@@ -45,6 +62,51 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getbybrand")]
+        public IActionResult GetByBrand(int brandId)
+        {
+            var result = _carService.GetAllByBrandId(brandId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcardetailsbybrand")]
+        public IActionResult GetCarDetailsByBrandId(int brandId)
+        {
+            var result = _carService.GetCarDetailsByBrandId(brandId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+
+
+        [HttpGet("getcardetailsbycolor")]
+        public IActionResult GetCarDetailsByColorId(int colorId)
+        {
+            var result = _carService.GetCarDetailsByColorId(colorId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcardetailsbycarıd")] 
+        public IActionResult GetCarDetailsByCarId(int carId)
+        {
+            var result = _carService.GetCarDetailsByCarId(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
 
 
         [HttpPost("add")]       // add - update - delete

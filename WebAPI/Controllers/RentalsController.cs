@@ -45,6 +45,7 @@ namespace WebAPI.Controllers
         [HttpPost("add")]       // add - update - delete
         public IActionResult Add(Rental rental)
         {
+
             var result = _rentalService.Add(rental);
             if (result.Success)
             {

@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -15,14 +16,26 @@ namespace Business.Concrete
     public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
-        public RentalManager(IRentalDal rentalDal)
+        ICarService _carService;
+        ICustomerService _customerService;
+        public RentalManager(IRentalDal rentalDal, ICarService carService, ICustomerService customerService)
         {
             _rentalDal = rentalDal;
+            _carService = carService;
+            _customerService = customerService;
         }
 
         public IResult Add(Rental rental)
         {
-            
+
+            if (_carService.GetById(rental.CarId) is null )
+                return new ErrorDataResult<List<Rental>>(Messages.CarEmpty);
+            if (_customerService.GetById(rental.CustomerId) is null)
+                return new ErrorDataResult<List<Rental>>(Messages.CustomerEmpty);
+
+            rental.RentDate = DateTime.Now;
+
+            _rentalDal.Add(rental); 
 
             return new SuccessResult(Messages.RentalAdded);
         }
@@ -54,5 +67,7 @@ namespace Business.Concrete
             _rentalDal.Update(rental);
             return new SuccessResult(Messages.RentalUpdated);
         }
+
+
     }
 }
